@@ -5,7 +5,7 @@ public class MagnetController : MonoBehaviour {
 	public GameObject sign;
 
 	public int quantityOfCharge = 1;
-	public bool typeOfCharge; //true - positive; false - nagetive
+	public int typeOfCharge = 1; //1 is positive; -1 is nagetive
 
 	private GameObject nearestMagnet = null;
 
@@ -46,9 +46,12 @@ public class MagnetController : MonoBehaviour {
 
 	void AddInstanceForce(){
 		Vector3 direction = nearestMagnet.transform.position - transform.position;
+		direction = direction * typeOfCharge * nearestMagnet.GetComponent<MagnetController>().typeOfCharge;
 		if(direction.magnitude < 1f) return;
 		float distance = Vector3.Distance(nearestMagnet.transform.position, transform.position);
+
 		float force = nearestMagnet.GetComponent<MagnetController>().quantityOfCharge * quantityOfCharge / (distance * distance);
+		Debug.Log(force);
 		rigidbody.AddForce(direction.normalized * force * 5, ForceMode.Force);
 	}
 }

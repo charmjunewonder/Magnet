@@ -13,4 +13,10 @@ public class ChargeController : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	void OnTriggerEnter(Collider other) {
+		other.gameObject.GetComponent<MagnetController>().quantityOfCharge += quantityOfCharge;
+
+        gameObject.SetActive(false);
+    }
 }
